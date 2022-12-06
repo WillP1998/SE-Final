@@ -1,0 +1,149 @@
+#:import utils kivy.utils
+<HomeScreen>:
+    BoxLayout:
+        orientation:'vertical'
+        MDTopAppBar:
+            title: "Eventerly!"
+            md_bg_color: "#98ccff"
+            left_action_items: [["account-outline", "To Profile"]]
+            right_action_items:[["help", "Help"]]
+
+
+        MDBottomNavigation:
+            panel_color: "#98ccff"
+            selected_color_background: "lightblue"
+            text_color_active: "#ffbf00"
+
+            MDBottomNavigationItem:
+                id: feed
+                name: 'screen 1'
+                text: 'Feed'
+                icon: 'newspaper-variant-multiple-outline'
+                #badge_icon: "numeric-10"
+
+                MDScrollViewRefreshLayout:
+                    id: refresh_layout
+                    root_layout: root
+                    size: self.size
+                    refresh_callback: app.refresh_callback
+                    GridLayout:
+                        id: grid_layout
+                        size_hint_y: None
+                        height: self.minimum_height
+                        width: self.minimum_width
+                        cols: 1
+                        spacing: '20dp'
+                        padding: '20dp'
+
+            MDBottomNavigationItem:
+                name: 'screen 2'
+                text: 'Events'
+                icon: 'calendar-month-outline'
+                #badge_icon: "numeric-5"
+
+                MDLabel:
+                    text: "Plan Your Event"
+                    halign: 'center'
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.95}
+                    font_size: '30dp'
+
+                MDTextField:
+                    id: event
+                    hint_text: "Type of Event"
+                    pos_hint: {'center_x': 0.44, 'center_y': 0.83}
+                    size_hint_x: None
+                    width: 200
+
+                MDTextField:
+                    id: location
+                    hint_text: "Location"
+                    pos_hint: { 'center_x': 0.44, 'center_y': 0.7}
+                    size_hint_x: None
+                    width: 200
+                MDFloatLayout:
+                    MDRaisedButton:
+                        text:"Open Calender"
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+                        on_release: app.show_date_picker()
+
+                    MDLabel:
+                        text: "Date:"
+                        pos_hint: {'center_x': 0.3, 'center_y': 0.55}
+                        size_hint_x: None
+                    MDLabel:
+                        id: date_label
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.46}
+                        size_hint_x: None
+
+                    MDRaisedButton:
+                        text: "Open Clock"
+                        pos_hint: {'center_x': 0.5, 'center_y': 0.36}
+                        on_release: app.show_time_picker()
+
+                    MDLabel:
+                        text: "Time:"
+                        pos_hint: {'center_x': 0.3, 'center_y': 0.36}
+                        size_hint_x: None
+                    MDLabel:
+                        id: time_label
+                        pos_hint: {'center_x': 0.55, 'center_y': 0.26}
+                        size_hint_x: None
+
+                MDRaisedButton:
+                    text: "Create Event"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.15}
+                    on_release:
+                        app.send_data(event.text, location.text, date_label.text, time_label.text)
+                        print("Event created successfully")
+
+            MDBottomNavigationItem:
+                name: 'screen 3'
+                text: 'Messages'
+                icon: 'cellphone-message'
+
+            MDBottomNavigationItem:
+                name: 'screen 4'
+                text: 'Settings'
+                icon: 'cog-outline'
+                Button:
+                    text: "Logout"
+                    size_hint: .5, .065
+                    font_size: "25sp"
+                    pos_hint: {"center_x": .46, "center_y": .26}
+                    background_color: 0, 0, 0, 0
+                    canvas.before:
+                        Color:
+                            rgb: rgba(0, 146, 254, 0.8)
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius:[5]
+                    on_release:
+                        app.change_screen("first_screen")
+
+                Button:
+                    text: "Privacy Policy"
+                    size_hint: .77, .065
+                    font_size: "25sp"
+                    pos_hint: {"center_x": .4, "center_y": .8}
+                    background_color: 0, 0, 0, 0
+                    canvas.before:
+                        Color:
+                            rgb: rgba(0, 146, 254, 0.9)
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius:[5]
+                Button:
+                    text: "Terms and Conditions"
+                    size_hint: .77, .065
+                    font_size: "25sp"
+                    pos_hint: {"center_x": .4, "center_y": .65}
+                    background_color: 0, 0, 0, 0
+                    canvas.before:
+                        Color:
+                            rgb: rgba(0, 146, 254, 0.8)
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos
+                            radius:[5]

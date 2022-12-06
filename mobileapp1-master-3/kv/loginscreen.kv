@@ -1,0 +1,113 @@
+#: import utils kivy.utils
+<LoginScreen>:
+    MDFloatLayout:
+        md_bg_color: 1, 1, 1, 2
+        MDIconButton:
+            icon: "arrow-left"
+            pos_hint: {"center_y": .95}
+            user_font_size: "30sp"
+            theme_text_color: "Custom"
+            text_color: rgba(26, 24, 58, 255)
+            on_release:
+                app.change_screen("first_screen")
+        MDLabel:
+            text: "Welcome !"
+            font_size: "26sp"
+            pos_hint: {"center_x": .6, "center_y": .85}
+            color: rgba(0, 0, 59, 255)
+        MDLabel:
+            text: "Sign in to continue"
+            font_size: "22sp"
+            pos_hint: {"center_x": .6, "center_y": .79}
+            color: rgba(135, 133, 195, 255)
+        Label:
+            id: login_message
+            size_hint: 0.8,0.1
+            pos_hint: {"top": 1 , "right": 0.9}
+            color: (1,0,0,1)
+            markup: True
+    MDFloatLayout:
+        size_hint: .7, .07
+        pos_hint: {"center_x": .5, "center_y": .63}
+        TextInput:
+            id: login_email
+            hint_text: "Email"
+            size_hint_y: .95
+            pos_hint: {"center_x": .43, "center_y": .5}
+            background_color: 1, 1, 1, 0
+            foreground_color: rgba(135, 133, 195, 255)
+            cursor_color: rgba(135, 133, 195, 255)
+            font_size: "21sp"
+            cursor_width: "4sp"
+            multiline: False
+        MDFloatLayout:
+            pos_hint: {"center_x": .45, "center_y": 0}
+            size_hint_y: .03
+            md_bg_color: rgba(135, 133, 195, 255)
+
+    MDFloatLayout:
+        size_hint: .7, .07
+        pos_hint: {"center_x": .5, "center_y": .5}
+        TextInput:
+            id: login_password
+            hint_text: "Password"
+            size_hint_y: .95
+            pos_hint: {"center_x": .43, "center_y": .5}
+            background_color: 1, 1, 1, 0
+            foreground_color: rgba(135, 133, 195, 255)
+            cursor_color: rgba(135, 133, 195, 255)
+            font_size: "21sp"
+            cursor_width: "4sp"
+            multiline: False
+            password: True
+        MDIconButton:
+            icon: "eye-off"
+            pos_hint: {"center_y": .5, "center_x": .9}
+            pos: login_password.width - self.width + dp(8), 0
+            theme_text_color: "Hint"
+            on_release:
+                self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+                login_password.password = False if login_password.password is True else True
+        MDFloatLayout:
+            pos_hint: {"center_x": .45, "center_y": 0}
+            size_hint_y: .03
+            md_bg_color: rgba(135, 133, 195, 255)
+    Button:
+        text: "Login"
+        size_hint: .66, .065
+        font_size: "25sp"
+        pos_hint: {"center_x": .45, "center_y": .34}
+        background_color: 0, 0, 0, 0
+        canvas.before:
+            Color:
+                rgb: rgba(0, 146, 254, 0.8)
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius:[5]
+        on_release:
+            app.my_firebase.sign_in(login_email.text, login_password.text)
+
+    MDTextButton:
+        text: "Forgot Password?"
+        pos_hint: {"center_x": .45, "center_y": .22}
+        color: rgba(68, 78, 132, 255)
+        font_size: "17sp"
+        on_release:
+            app.change_screen("forgot_password_screen")
+
+    MDLabel:
+        text: "Don't have an account?"
+        pos_hint: {"center_x": .59, "center_y": .14}
+        color: rgba(68, 78, 132, 255)
+        font_size: "17sp"
+    MDTextButton:
+        text: "Sign up"
+        font_size: "17sp"
+        pos_hint: {"center_x": .75, "center_y": 0.14}
+        color: rgba(52, 0, 231, 255)
+        on_release:
+            app.change_screen("signup_screen")
+
+
+

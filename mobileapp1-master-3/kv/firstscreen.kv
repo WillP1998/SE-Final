@@ -1,0 +1,44 @@
+#: import utils kivy.utils
+
+<FirstScreen>:
+    MDFloatLayout:
+        md_bg_color: 1, 1, 1, 1
+        Image:
+            source: r"C:\\Users\\gtm24_y457pwa\\PycharmProjects\\mobileapp\\asseets//logo.png"
+            pos_hint: {"center_x": .50, "center_y": .65}
+
+        Button:
+            text: "Login"
+            size_hint: .66, .065
+            pos_hint: {"center_x": .5, "center_y": .35}
+            background_color: 0, 0, 0, 0
+            on_release:
+                app.change_screen("login_screen")
+            canvas.before:
+                Color:
+                    rgb: rgba(0, 146, 254, 0.8)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius:[5]
+
+        Button:
+            text: "Signup"
+            size_hint: .66, .065
+            pos_hint: {"center_x": .5, "center_y": .22}
+            background_color: 0, 0, 0, 0
+            on_release:
+                app.change_screen("signup_screen")
+            canvas.before:
+                Color:
+                    rgb: rgba(0, 146, 254, 0.8)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius:[5]
+
+        Label:
+            size_hint: 0.8,0.1
+            pos_hint: {"top": 0.2 , "right": 0.9}
+            markup: True
+            id: first_screen
